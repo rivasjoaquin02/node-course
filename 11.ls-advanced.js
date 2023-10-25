@@ -1,5 +1,6 @@
 const fs = require("node:fs/promises");
 const path = require("node:path");
+const pc = require("picocolors");
 
 const folder = process.argv[2] ?? ".";
 
@@ -9,10 +10,11 @@ async function ls(folder) {
 	try {
 		files = await fs.readdir(folder);
 	} catch (error) {
-		console.error("Error while reading the dir ", error);
+		console.error(pc.red(`Error while reading the dir ${folder}`), error);
 		process.exit(1);
 	}
 
+	// map is parallel
 	const filesPromises = files.map(async (file) => {
 		const filePath = path.join(folder, file);
 		let stats;
@@ -26,10 +28,12 @@ async function ls(folder) {
 
 		const isDirectory = stats.isDirectory();
 		const fileType = isDirectory ? "d" : "f";
-		const fileSize = stats.size;
+		const fileSize = stats.size.toLocaleString();
 		const fileModified = stats.mtime.toLocaleString();
 
-		return `${fileType} ${file.padEnd(25)} ${fileSize.toLocaleString().padStart(10)} ${fileModified}`;
+		return `${pc.bgMagenta(fileType)} ${pc.blue(file.padEnd(25))} ${pc.green(
+			fileSize.padStart(10)
+		)} ${pc.yellow(fileModified)}`;
 	});
 
 	const filesInfo = await Promise.all(filesPromises);

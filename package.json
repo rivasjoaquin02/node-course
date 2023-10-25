@@ -1,0 +1,27 @@
+{
+	"name": "node-course",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/rivasjoaquin02/node-course.git"
+	},
+	"keywords": [
+		"course",
+		"node",
+		"nodejs"
+	],
+	"author": "strangedevel",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/rivasjoaquin02/node-course/issues"
+	},
+	"homepage": "https://github.com/rivasjoaquin02/node-course#readme",
+	"dependencies": {
+		"picocolors": "1.0.0"
+	}
+}
