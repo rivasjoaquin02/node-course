@@ -12,6 +12,5 @@ console.log(process.cwd());
 // env variables
 console.log(process.env.NODE_ENV);
 
-
 // control the process and is exit code
 process.exit(0);
