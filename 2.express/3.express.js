@@ -28,7 +28,7 @@ app.disable("x-powered-by");
 // });
 
 // the same as the commented
-app.use(express.json())
+app.use(express.json());
 
 app.get("/", (req, res) => {
 	// res.send("<h1>My page</h1>");
@@ -40,7 +40,7 @@ app.get("/pokemon/ditto", (req, res) => {
 });
 
 app.post("/pokemon", (req, res) => {
-    // req.body should be stored in DB
+	// req.body should be stored in DB
 	res.status(201).json(req.body);
 });
 
