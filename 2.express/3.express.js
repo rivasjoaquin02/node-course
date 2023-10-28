@@ -4,7 +4,7 @@ const dittoJSON = require("./pokemon/ditto.json");
 const PORT = process.env.PORT ?? 3000;
 
 const app = express();
-app.disable("x-powered-by");
+app.disable("x-powered-by"); //disable the X-Powered-By: Express
 
 // middleware
 // app.use((req, res, next) => {
