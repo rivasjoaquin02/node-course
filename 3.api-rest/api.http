@@ -31,5 +31,5 @@ PATCH http://localhost:3000/movies/eabaf928-fc9c-41a4-8181-123f8a3e0e57
 Content-Type: application/json
 
 {
-    "year": 1998
+  "year": 1998
 }

@@ -2,24 +2,36 @@ const express = require("express");
 const crypto = require("node:crypto");
 const movies = require("./movies.json");
 const { validateMovie, validatePartialMovie } = require("./schemas/movies");
+const cors = require("cors");
 
 const app = express();
 app.disable("x-powered-by");
 
 // middleware for getting the body in a POST operation
 app.use(express.json());
+app.use(
+	cors({
+		origin: (origin, callback) => {
+			const ACCEPTED_ORIGINS = [
+				"http://localhost:3000",
+				"http://localhost:11558",
+				"http://movies.com",
+			];
 
-const ACCEPTED_ORIGINS = [
-	"http://localhost:3000",
-	"http://localhost:10941",
-	"http://movies.com",
-];
+			if (ACCEPTED_ORIGINS.includes(origin) || !origin) {
+				return callback(null, true);
+			}
+
+			return callback(new Error("Not allowed by CORS"));
+		},
+	})
+);
 
 // endpoint /movies -> al resources that are movies
 app.get("/movies", (req, res) => {
-	const origin = req.header("origin");
-	if (ACCEPTED_ORIGINS.includes(origin) || !origin)
-		res.header("Access-Control-Allow-Origin", "http://localhost:8000");
+	// const origin = req.header("origin");
+	// if (ACCEPTED_ORIGINS.includes(origin) || !origin)
+	// 	res.header("Access-Control-Allow-Origin", origin);
 
 	const { genre } = req.query;
 
@@ -88,6 +100,30 @@ app.patch("/movies/:id", (req, res) => {
 
 	return res.json(updateMovie);
 });
+
+app.delete("/movies/:id", (req, res) => {
+	const { id } = req.params;
+	const movieIndex = movies.findIndex((movie) => movie.id === id);
+
+	if (movieIndex === -1) {
+		return res.status(404).json({ message: "Movie not found" });
+	}
+
+	movies.splice(movieIndex, 1);
+
+	return res.json({ message: "Movie deleted" });
+});
+
+// app.options("/movies/:id", (req, res) => {
+// 	const origin = req.header("origin");
+
+// 	if (ACCEPTED_ORIGINS.includes(origin) || !origin) {
+// 		res.header("Access-Control-Allow-Origin", origin);
+// 		res.header("Access-Control-Allow-Methods", "GET, POST, PATCH, DELETE");
+// 	}
+
+// 	res.sendStatus(200);
+// });
 
 const PORT = process.env.PORT ?? 3000;
 
