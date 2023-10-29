@@ -1,5 +1,5 @@
 import { randomUUID } from "node:crypto";
-import { readJSON } from "../lib/fs-tools.js";
+import { readJSON } from "../../lib/fs-tools.js";
 
 const movies = readJSON("../movies.json");
 
