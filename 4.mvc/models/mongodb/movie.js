@@ -1,6 +1,7 @@
 import { MongoClient, ObjectId, ServerApiVersion } from "mongodb";
 // TODO: del password
-const uri = `mongodb+srv://rivasjoaquin02:Mongodb.200218@cluster0.jqyhiju.mongodb.net/?retryWrites=true&w=majority`;
+// const uri = `mongodb+srv://rivasjoaquin02:Mongodb.200218@cluster0.jqyhiju.mongodb.net/?retryWrites=true&w=majority`;
+const uri = "localhost";
 
 const client = new MongoClient(uri, {
 	serverApi: {
